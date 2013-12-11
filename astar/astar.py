@@ -26,7 +26,7 @@ def astar(start, goal, neighbor_nodes, dist_between, heuristic_cost_estimate):
                 if neighbor not in openset:
                     openset.append(neighbor)
 
-    return False
+    return None
 
 def reconstruct_path(came_from, current_node):
     path = [current_node]
