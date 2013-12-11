@@ -1,4 +1,5 @@
-#!-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
+
 """
 Floyd's cycle-finding algorithm
 http://en.wikipedia.org/wiki/Cycle_detection
