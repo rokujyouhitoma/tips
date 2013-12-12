@@ -9,12 +9,22 @@ map = [[1,1,1,1,1],
        [1,0,0,0,1],
        [1,1,1,1,1]]
 
+def is_outside_map(x, y):
+    if x < 0 or x > MAP_COL-1 or y < 0 or y > MAP_ROW-1:
+        return True
+    return False
+
+def is_block(x, y):
+    if map[y][x] == 1:
+        return True
+    return False
+
 def is_movable(p):
     x, y = p
-    if x < 0 or x > MAP_COL-1 or y < 0 or y > MAP_ROW-1:
+    if is_outside_map(x, y):
         return False
-    if map[y][x] == 1:
-        return False
+    #if is_block(x, y):
+    #    return False
     return True
 
 def neighbor_nodes(p):
@@ -32,10 +42,10 @@ def euclidean_distance(p1, p2):
     return math.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
 
 if __name__ == '__main__':
-    start = (1, 1)
-    goal  = (3, 4)
+    start = (0, 0)
+    goal  = (1, 1)
     path  = astar.astar(start, goal, neighbor_nodes, heuristic_cost_estimate, heuristic_cost_estimate)
     if path:
         for position in reversed(path):
             x,y = position
-            print(x,y)
+            #print(x,y)
