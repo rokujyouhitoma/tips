@@ -1,11 +1,12 @@
 import astar
 
-MAP_ROW = 5
+MAP_ROW = 7
 MAP_COL = 5
 map = [[1,1,1,1,1],
        [1,0,0,0,1],
+       [1,1,1,0,1],
        [1,0,0,0,1],
-       [1,0,0,0,1],
+       [1,0,1,1,1],
        [1,0,0,0,1],
        [1,1,1,1,1]]
 
@@ -23,8 +24,8 @@ def is_movable(p):
     x, y = p
     if is_outside_map(x, y):
         return False
-    #if is_block(x, y):
-    #    return False
+    if is_block(x, y):
+        return False
     return True
 
 def neighbor_nodes(p):
@@ -42,10 +43,11 @@ def euclidean_distance(p1, p2):
     return math.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
 
 if __name__ == '__main__':
-    start = (0, 0)
+    start = (2, 2)
     goal  = (1, 1)
     path  = astar.astar(start, goal, neighbor_nodes, heuristic_cost_estimate, heuristic_cost_estimate)
     if path:
+        print("====")
         for position in reversed(path):
             x,y = position
-            #print(x,y)
+            print(x,y)

@@ -10,8 +10,6 @@ def astar(start, goal, neighbor_nodes, dist_between, heuristic_cost_estimate):
     f_score[start] = g_score[start] + heuristic_cost_estimate(start, goal)
     while openset:
         current = min((f_score[node], node) for node in openset)[1]
-        #print(f_score)
-        #print(current)
         if current == goal:
             return reconstruct_path(came_from, goal)
         openset.remove(current)
@@ -24,18 +22,14 @@ def astar(start, goal, neighbor_nodes, dist_between, heuristic_cost_estimate):
             if neighbor not in openset or tentative_f_score < f_score[neighbor]:
                 came_from[neighbor] = current
                 g_score[neighbor] = tentative_g_score
-                #print(tentative_f_score)
                 f_score[neighbor] = tentative_f_score
                 if neighbor not in openset:
                     openset.append(neighbor)
-
     return None
 
 def reconstruct_path(came_from, current_node):
     path = [current_node]
-    #print(current_node)
     while current_node in came_from:
         current_node = came_from[current_node]
-        #print(current_node)
         path.append(current_node)
     return path
