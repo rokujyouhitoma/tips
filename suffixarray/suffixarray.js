@@ -20,7 +20,7 @@ function binarySearch(str, sa, key){
   while(low <= high) {
     mid = Math.floor((low + high) / 2);
     var val = str.substr(sa[mid], key.length);
-    //console.log("(mid, key, val): " + mid + ", " + key + ", " + val);
+    console.log("(mid, key, val): " + mid + ", " + key + ", " + val);
     if(val === key) {
       return mid;
     } else if(val < key) {
@@ -33,3 +33,9 @@ function binarySearch(str, sa, key){
 }
 
 exports.binarySearch = binarySearch;
+
+//var s = "abracadabra";
+//var sa = new SuffixArray(s);
+//console.log(sa);
+//var r = binarySearch(s, sa, "racadabra");
+//console.log(sa[r]);
