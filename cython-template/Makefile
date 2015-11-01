@@ -5,4 +5,4 @@ cytnon-template:
 
 .PHONY: clean
 clean:
-	rm -rf cython_template.c cython_template.so build
+	@rm -rf cython_template.c cython_template.so build
