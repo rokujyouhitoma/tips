@@ -19,6 +19,7 @@ var Xorshift = function() {
  
 Xorshift.prototype.srand = function(seed){
     this._reset(seed);
+    return this.rand();
 };
  
 Xorshift.prototype.rand = function() {
@@ -42,3 +43,6 @@ Xorshift.prototype._reset = function(seed) {
     this._w =seed >>> 0;
     this._seed = seed >>> 0;
 };
+
+Xorshift.MIN_VALUE = 0;
+Xorshift.MAX_VALUE = 0xFFFFFFFF;
