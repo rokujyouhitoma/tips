@@ -11,7 +11,7 @@ class File(object):
         self.name = name
 
     def getName(self):
-        return self.name;
+        return self.name
 
     def decompress(self):
         print('%sを展開しました' % self.name)
@@ -24,25 +24,25 @@ class File(object):
 
 class TouchCommand(Command):
     def __init__(self, file):
-        self.file = file;
+        self.file = file
 
     def execute(self):
-        self.file.create();
+        self.file.create()
 
 class CompressCommand(Command):
     def __init__(self, file):
-        self.file = file;
+        self.file = file
 
     def execute(self):
-        self.file.compress();
+        self.file.compress()
 
 class CopyCommand(Command):
     def __init__(self, file):
-        self.file = file;
+        self.file = file
 
     def execute(self):
         self.file = File('copy_of_%s' % self.file.getName())
-        self.file.create();
+        self.file.create()
 
 class Queue(object):
     def __init__(self):
@@ -53,9 +53,13 @@ class Queue(object):
         self.commands.append(command)
 
     def run(self):
-        for command in self.commands:
+        for command in self.next():
+            self.current_index += 1
             command.execute()
 
+    def next(self):
+        return self.commands[self.current_index:]
+        
 class Client(object):
     def play(self):
         queue = Queue()
@@ -63,6 +67,9 @@ class Client(object):
         queue.addCommand(TouchCommand(file))
         queue.addCommand(CompressCommand(file))
         queue.addCommand(CopyCommand(file))
+        queue.run()
+        print "===="
+        queue.addCommand(TouchCommand(file))
         queue.run()
 
 def main():
