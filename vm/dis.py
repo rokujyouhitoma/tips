@@ -1,44 +1,57 @@
-from instruction import *
+import array
+from opcodes import *
 
 OPCODES = {
-    0x01: "LITERAL",
-    0x11: "ADD",
-    0x12: "SUB",
-    0x13: "MUL",
-    0x14: "DIV",
-    0x21: "PRINT",
+    LITERAL: "LITERAL",
+    ADD: "ADD",
+    SUB: "SUB",
+    MUL: "MUL",
+    DIV: "DIV",
+    PRINT: "PRINT",
 }
 
-def dis(bytecode):
+def dis(bytestring):
     """
-    >>> dis([LITERAL, 2, PRINT])
+    >>> import array
+    >>> ba = array.array("B", [LITERAL, 2, PRINT])
+    >>> bs = ba.tostring()
+    >>> dis(bs)
+    LITERAL 2
+    PRINT
+    """
+    bytecode = map(ord, bytestring)
+    disa(bytecode)
+
+def disa(bytecode):
+    """
+    >>> disa([LITERAL, 2, PRINT])
     LITERAL 2
     PRINT
     """
     buffer = []
     index = 0
     while index < len(bytecode):
-        opcode = bytecode[index]
-        if opcode == LITERAL:
-            op = OPCODES[opcode]
-            x = bytecode[index + 1]
-            buffer.append([op, str(x)])
+        code = bytecode[index]
+        if code == LITERAL:
+            opcode = OPCODES[code]
+            oprand = bytecode[index + 1]
+            buffer.append([opcode, str(oprand)])
             index += 1
-        elif opcode == ADD:
-            op = OPCODES[opcode]
-            buffer.append([op])
-        elif opcode == SUB:
-            op = OPCODES[opcode]
-            buffer.append([op])
-        elif opcode == MUL:
-            op = OPCODES[opcode]
-            buffer.append([op])
-        elif opcode == DIV:
-            op = OPCODES[opcode]
-            buffer.append([op])
-        elif opcode == PRINT:
-            op = OPCODES[opcode]
-            buffer.append([op])
+        elif code == ADD:
+            opcode = OPCODES[code]
+            buffer.append([opcode])
+        elif code == SUB:
+            opcode = OPCODES[code]
+            buffer.append([opcode])
+        elif code == MUL:
+            opcode = OPCODES[code]
+            buffer.append([opcode])
+        elif code == DIV:
+            opcode = OPCODES[code]
+            buffer.append([opcode])
+        elif code == PRINT:
+            opcode = OPCODES[code]
+            buffer.append([opcode])
         index += 1
     
     string = "\n".join([" ".join(x) for x in buffer])

@@ -1,16 +1,22 @@
-from instruction import *
+import array
+from opcodes import *
 
 class VM(object):
     """
-    >>> VM().evaluate([LITERAL, 2, PRINT])
+    >>> import array
+    >>> b = array.array("B", [LITERAL, 0, PRINT])
+    >>> bs = b.tostring()
+    >>> VM().evaluate(bs)
+    0
+    >>> VM().evaluatea([LITERAL, 2, PRINT])
     2
-    >>> VM().evaluate([LITERAL, 1, LITERAL, 2, ADD, PRINT])
+    >>> VM().evaluatea([LITERAL, 1, LITERAL, 2, ADD, PRINT])
     3
-    >>> VM().evaluate([LITERAL, 2, LITERAL, 1, SUB, PRINT])
+    >>> VM().evaluatea([LITERAL, 2, LITERAL, 1, SUB, PRINT])
     1
-    >>> VM().evaluate([LITERAL, 2, LITERAL, 3, MUL, PRINT])
+    >>> VM().evaluatea([LITERAL, 2, LITERAL, 3, MUL, PRINT])
     6
-    >>> VM().evaluate([LITERAL, 6, LITERAL, 2, DIV, PRINT])
+    >>> VM().evaluatea([LITERAL, 6, LITERAL, 2, DIV, PRINT])
     3
     """
     def __init__(self):
@@ -22,39 +28,43 @@ class VM(object):
     def pop(self):
         return self.stack.pop()
 
-    def evaluate(self, bytecode):
+    def evaluate(self, bytestring):
+        bytecode = map(ord, bytestring)
+        self.evaluatea(bytecode)
+
+    def evaluatea(self, bytecode):
         index = 0
         while index < len(bytecode):
-            opcode = bytecode[index]
-            if opcode == LITERAL:
-                value = bytecode[index + 1]
-                self.push(value)
+            code = bytecode[index]
+            if code == LITERAL:
+                oprand = bytecode[index + 1]
+                self.push(oprand)
                 index += 1
-            elif opcode == ADD:
+            elif code == ADD:
                 b = self.pop()
                 a = self.pop()
-                value = a + b
-                self.push(value)
-            elif opcode == SUB:
+                oprand = a + b
+                self.push(oprand)
+            elif code == SUB:
                 b = self.pop()
                 a = self.pop()
-                value = a - b
-                self.push(value)
-            elif opcode == MUL:
+                oprand = a - b
+                self.push(oprand)
+            elif code == MUL:
                 b = self.pop()
                 a = self.pop()
-                value = a * b
-                self.push(value)
-            elif opcode == DIV:
+                oprand = a * b
+                self.push(oprand)
+            elif code == DIV:
                 b = self.pop()
                 a = self.pop()
-                value = a / b
-                self.push(value)
-            elif opcode == PRINT:
+                oprand = a / b
+                self.push(oprand)
+            elif code == PRINT:
                 a = self.pop()
                 print(a)
             else:
-                raise Exception("opcode: ", opcode)
+                raise Exception("code: ", code)
             index += 1
 
 if __name__ == "__main__":
