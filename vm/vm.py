@@ -1,5 +1,6 @@
 import array
 from opcodes import *
+from expressions import *
 
 class VM(object):
     """
@@ -38,31 +39,31 @@ class VM(object):
             code = bytecode[index]
             if code == LITERAL:
                 oprand = bytecode[index + 1]
-                self.push(oprand)
+                self.push(NumberExpression(oprand))
                 index += 1
             elif code == ADD:
                 b = self.pop()
                 a = self.pop()
-                oprand = a + b
-                self.push(oprand)
+                oprand = AdditionExpression(a, b).evaluate()
+                self.push(NumberExpression(oprand))
             elif code == SUB:
                 b = self.pop()
                 a = self.pop()
-                oprand = a - b
-                self.push(oprand)
+                oprand = SubtractionExpression(a, b).evaluate()
+                self.push(NumberExpression(oprand))
             elif code == MUL:
                 b = self.pop()
                 a = self.pop()
-                oprand = a * b
-                self.push(oprand)
+                oprand = MultiplicationExpression(a, b).evaluate()
+                self.push(NumberExpression(oprand))
             elif code == DIV:
                 b = self.pop()
                 a = self.pop()
-                oprand = a / b
-                self.push(oprand)
+                oprand = DivisionExpression(a, b).evaluate()
+                self.push(NumberExpression(oprand))
             elif code == PRINT:
                 a = self.pop()
-                print(a)
+                print(a.evaluate())
             else:
                 raise Exception("code: ", code)
             index += 1
