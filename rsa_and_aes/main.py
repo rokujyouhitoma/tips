@@ -26,33 +26,38 @@ def decrypt(key, content):
 class Client():
     def __init__(self):
         rsa = RSA.generate(1024, randpool.RandomPool().get_bytes)
-        self.rsa_public_key = rsa.publickey().exportKey("PEM") 
+        # client public key
+        self.rsa_public_key = rsa.publickey().exportKey("PEM")
+        # client secret key
         self.rsa_private_key = RSA.construct((rsa.n, rsa.e, rsa.d)).exportKey("PEM") 
 
     def connect(self, server):
         self.server = server
 
     def request(self):
-        server_key, content = self.server.response(self.rsa_public_key)
+        encrypted_common_key, content = self.server.response(self.rsa_public_key)
         rsa = RSA.importKey(self.rsa_private_key)
-        key = rsa.decrypt(server_key)
+        key = rsa.decrypt(encrypted_common_key)
         print("server key at client '%s'" % key)
         raw = decrypt(key, content)
         return raw
 
 class Server():
-    def __init__(self, key, raw):
-        self.key = key
-        self.content = encrypt(key, raw)
+    def __init__(self, common_key, raw):
+        print("server content(raw): '%s'" % raw)
+        self.common_key = common_key
+        # encrypted content. e.g. encrypted Asset data file.
+        self.content = encrypt(common_key, raw)
 
-    def response(self, client_public_key):
-        rsa = RSA.importKey(client_public_key)
-        print("server key at server: '%s'" % self.key)
-        return rsa.encrypt(self.key, ""), self.content
+    def response(self, client_rsa_public_key):
+        rsa = RSA.importKey(client_rsa_public_key)
+        print("server key at server: '%s'" % self.common_key)
+        encrypted_common_key = rsa.encrypt(self.common_key, "")
+        return encrypted_common_key, self.content
 
-client = Client()
-server = Server(pad("this is key"), "hello world")
-
-client.connect(server)
-raw = client.request()
-print("cleint get: '%s'" % raw)
+if __name__ == '__main__':
+    client = Client()
+    server = Server(pad("this is common key"), "hello world")
+    client.connect(server)
+    raw = client.request()
+    print("cleint get: '%s'" % raw)
