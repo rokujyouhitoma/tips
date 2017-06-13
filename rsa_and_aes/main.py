@@ -36,6 +36,8 @@ class Client():
 
     def request(self):
         encrypted_common_key, content = self.server.response(self.rsa_public_key)
+        print("request/response data: '%s' '%s'" % (encrypted_common_key, content))
+        encrypted_common_key = base64.b64decode(encrypted_common_key)
         rsa = RSA.importKey(self.rsa_private_key)
         key = rsa.decrypt(encrypted_common_key)
         print("server key at client '%s'" % key)
@@ -53,11 +55,11 @@ class Server():
         rsa = RSA.importKey(client_rsa_public_key)
         print("server key at server: '%s'" % self.common_key)
         encrypted_common_key = rsa.encrypt(self.common_key, "")
-        return encrypted_common_key, self.content
+        return base64.b64encode(encrypted_common_key[0]), self.content
 
 if __name__ == '__main__':
     client = Client()
-    server = Server(pad("this is common key"), "hello world")
+    server = Server(pad("this is common key"), "hello world" * 10)
     client.connect(server)
     raw = client.request()
     print("cleint get: '%s'" % raw)
