@@ -1,15 +1,13 @@
-# Ref: 書籍"情報検索の基礎"
-# Ref: https://scarlet09libra.hatenablog.com/entry/2021/02/24/210856
-
 import collections
 import itertools
 import math
 
 # Prepared the document
+# Quoted by https://makitani.net/shimauma/coe
 docs = [d.split("/") for d in [
-    "今日/は/雨/が/降っ/て/い/ます/。",
-    "雨/は/コーラ/ が/飲め/ない",
-    "私/は/雨/の/降る/音/が/好き/です/。",
+    "CoE/と/は/、/Center/ /of/ /Excellence/（/センター/・/オブ/・/エクセレンス/）/の/略",
+    "横断/組織/、/中央/組織/、/横断/基盤/の/こと/。",
+    "人材/や/ノウハウ/、/ツール/など/を/集約/した/横断組織/を/「/CoE/」/「/センター/・/オブ/・/エクセレンス/」/と/呼ぶ/こと/が/増え/て/いる/。",
 ]]
 
 def tf_idf(t, d):
@@ -60,12 +58,7 @@ if __name__ == "__main__":
     def euclidean_distance(vec1, vec2):
         return math.sqrt(math.fabs(sum([q - p for q,p in zip(vec1, vec2)])))
 
-    print("0->0", euclidean_distance(feature_vectors[0], feature_vectors[0]))
     print("0->1", euclidean_distance(feature_vectors[0], feature_vectors[1]))
     print("0->2", euclidean_distance(feature_vectors[0], feature_vectors[2]))
-    print("1->0", euclidean_distance(feature_vectors[1], feature_vectors[0]))
-    print("1->1", euclidean_distance(feature_vectors[1], feature_vectors[1]))
     print("1->2", euclidean_distance(feature_vectors[1], feature_vectors[2]))
-    print("2->0", euclidean_distance(feature_vectors[2], feature_vectors[0]))
-    print("2->1", euclidean_distance(feature_vectors[2], feature_vectors[1]))
-    print("2->2", euclidean_distance(feature_vectors[2], feature_vectors[2]))
+
