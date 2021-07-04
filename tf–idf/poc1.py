@@ -9,13 +9,18 @@ docs = [d.split("/") for d in [
     "横断/組織/、/中央/組織/、/横断/基盤/の/こと/。",
     "人材/や/ノウハウ/、/ツール/など/を/集約/した/横断組織/を/「/CoE/」/「/センター/・/オブ/・/エクセレンス/」/と/呼ぶ/こと/が/増え/て/いる/。",
 ]]
+docs = [
+    ["私", "は", "とても", "元気", "です"],
+    ["私", "は", "元気", "です"],
+    ["とても", "元気", "です"],
+]
 
 def tf_idf(t, d):
     """
     >>> t = "今日"
     >>> d = "今日/は/雨/が/降っ/て/い/ます/。".split("/")
     >>> tf_idf(t, d)
-    0.12206803207423442
+    0.0
     """
     return tf(t, d) * idf(t)
 
@@ -35,11 +40,31 @@ def idf(t):
     >>> idf("雨")
     0.0
     >>> idf("コーラ")
-    1.0986122886681098
+    0.0
     """
     D = len(docs)
     df = collections.Counter([t in doc for doc in docs])[True]
+    if df == 0:
+        return 0.0
     return math.log(D / df)
+
+
+def euclidean_distance(vec1, vec2):
+    return math.sqrt(math.fabs(sum([q - p for q,p in zip(vec1, vec2)])))
+
+def cosine_similarity(vec1, vec2):
+    """
+    >>> v1 = [1, 1, 1, 0, 0]
+    >>> v2 = [0, 1, 1, 1, 0]
+    >>> v3 = [1, 1, 0, 0, 1]
+    >>> cosine_similarity(v1, v2)
+    0.6666666666666667
+    >>> cosine_similarity(v1, v3)
+    0.6666666666666667
+    >>> cosine_similarity(v2, v3)
+    0.33333333333333337
+    """
+    return sum([a*b for a,b in zip(vec1, vec2)]) / (math.sqrt(sum(vec1)) * math.sqrt(sum(vec2)))
 
 
 if __name__ == "__main__":
@@ -55,10 +80,12 @@ if __name__ == "__main__":
     pprint.pprint(feature_vectors)
     pprint.pprint(word_vectors)
 
-    def euclidean_distance(vec1, vec2):
-        return math.sqrt(math.fabs(sum([q - p for q,p in zip(vec1, vec2)])))
+    print("Euclidean Distance")
+    print("0->1", 1 - euclidean_distance(feature_vectors[0], feature_vectors[1]))
+    print("0->2", 1 - euclidean_distance(feature_vectors[0], feature_vectors[2]))
+    print("1->2", 1 - euclidean_distance(feature_vectors[1], feature_vectors[2]))
 
-    print("0->1", euclidean_distance(feature_vectors[0], feature_vectors[1]))
-    print("0->2", euclidean_distance(feature_vectors[0], feature_vectors[2]))
-    print("1->2", euclidean_distance(feature_vectors[1], feature_vectors[2]))
-
+    print("Cosine Similarity")
+    print("0->1", 1 - cosine_similarity(feature_vectors[0], feature_vectors[1]))
+    print("0->2", 1 - cosine_similarity(feature_vectors[0], feature_vectors[2]))
+    print("1->2", 1 - cosine_similarity(feature_vectors[1], feature_vectors[2]))
