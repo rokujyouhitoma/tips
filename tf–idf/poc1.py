@@ -9,11 +9,6 @@ docs = [d.split("/") for d in [
     "横断/組織/、/中央/組織/、/横断/基盤/の/こと/。",
     "人材/や/ノウハウ/、/ツール/など/を/集約/した/横断組織/を/「/CoE/」/「/センター/・/オブ/・/エクセレンス/」/と/呼ぶ/こと/が/増え/て/いる/。",
 ]]
-docs = [
-    ["私", "は", "とても", "元気", "です"],
-    ["私", "は", "元気", "です"],
-    ["とても", "元気", "です"],
-]
 
 def tf_idf(t, d):
     """
@@ -81,11 +76,18 @@ if __name__ == "__main__":
     pprint.pprint(word_vectors)
 
     print("Euclidean Distance")
+    print("0->0", 1 - euclidean_distance(feature_vectors[0], feature_vectors[0]))
     print("0->1", 1 - euclidean_distance(feature_vectors[0], feature_vectors[1]))
     print("0->2", 1 - euclidean_distance(feature_vectors[0], feature_vectors[2]))
+    print("1->0", 1 - euclidean_distance(feature_vectors[1], feature_vectors[0]))
+    print("1->1", 1 - euclidean_distance(feature_vectors[1], feature_vectors[1]))
     print("1->2", 1 - euclidean_distance(feature_vectors[1], feature_vectors[2]))
+    print("2->0", 1 - euclidean_distance(feature_vectors[2], feature_vectors[0]))
+    print("2->1", 1 - euclidean_distance(feature_vectors[2], feature_vectors[1]))
+    print("2->2", 1 - euclidean_distance(feature_vectors[2], feature_vectors[2]))
 
-    print("Cosine Similarity")
+    #print("Cosine Similarity")
+    print("0->0", 1 - cosine_similarity(feature_vectors[0], feature_vectors[0]))
     print("0->1", 1 - cosine_similarity(feature_vectors[0], feature_vectors[1]))
     print("0->2", 1 - cosine_similarity(feature_vectors[0], feature_vectors[2]))
     print("1->2", 1 - cosine_similarity(feature_vectors[1], feature_vectors[2]))
