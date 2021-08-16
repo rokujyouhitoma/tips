@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-
-#TODO
 class State(object):
     def __init__(self, name, parent):
         self.name = name
@@ -18,7 +15,7 @@ class State(object):
     def __str__(self):
         return '<State %s>' % self.name
 
-#TODO
+
 class StateMachine(object):
     def __init__(self):
         self.startState = None
@@ -38,8 +35,8 @@ class HFSM(StateMachine):
     def __init__(self):
         super(HFSM, self).__init__()
 
+
 if __name__ == '__main__':
-    #state
     start   = State('start', None)
     state_4 = State('state_4', None)
     state_0 = State('state_0', state_4)
@@ -48,12 +45,10 @@ if __name__ == '__main__':
     state_3 = State('state_3', state_2)
     end     = State('end', None)
 
-    #action
     action_0 = lambda: 1
 
     m = HFSM()
 
-    #state transition table
     m.add_transition(start, None, state_0, None)
     m.add_transition(state_0, 'event_0', state_3, action_0)
     m.add_transition(state_1, 'event_1', state_0, None)
