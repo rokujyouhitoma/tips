@@ -20,9 +20,14 @@ class StateMachine(object):
     def __init__(self):
         self.startState = None
         self.currentState = None
+        self.transactions = {}
 
     def add_transition(self, current_state, event_name, next_state, action):
-        pass
+        # TODO
+        if event_name in self.transactions:
+            self.transactions[event_name].append(next_state)
+        else:
+            self.transactions[event_name] = [next_state]
 
     def set_start(self, state):
         self.startState = state
