@@ -59,7 +59,7 @@ class Queue(object):
 
     def next(self):
         return self.commands[self.current_index:]
-        
+
 class Client(object):
     def play(self):
         queue = Queue()
@@ -68,7 +68,7 @@ class Client(object):
         queue.addCommand(CompressCommand(file))
         queue.addCommand(CopyCommand(file))
         queue.run()
-        print "===="
+        print("====")
         queue.addCommand(TouchCommand(file))
         queue.run()
 
