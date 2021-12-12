@@ -18,7 +18,6 @@ def getwords(doc):
 
 if __name__ == '__main__':
     #TODO: 1
-    print("====")
     classifier = docclass.Classifier(getwords)
     sample_train(classifier)
     print(classifier.weighted_probability(
@@ -29,14 +28,12 @@ if __name__ == '__main__':
     print(classifier.feature_probability('quick', 'good'))
 
     #TODO: 2
-    print("====")
     classifier = docclass.NaiveBayes(getwords)
     sample_train(classifier)
     print(classifier.probability('quick rabbit', 'good'))
     print(classifier.probability('quick rabbit', 'bad'))
 
     #TODO: 3
-    print("====")
     classifier = docclass.NaiveBayes(getwords)
     sample_train(classifier)
     print(classifier.classify('quick rabbit', default="unknown"))
