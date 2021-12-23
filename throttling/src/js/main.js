@@ -5,6 +5,8 @@ var Engine = function(objects){
     this.count = 0;
     this.FPS = 60;
     this.lastUpdate = Date.now();
+    this.m = 0;
+    this.callback = null;
 };
 
 Engine.prototype.Loop = function(){
@@ -18,6 +20,7 @@ Engine.prototype.Loop = function(){
         }
         var now = Date.now();
         var elapsed = now - this.lastUpdate;
+        this.m += elapsed;
         this.lastUpdate = now;
         lag += elapsed;
         if(LIMIT_LAG < lag){
@@ -29,6 +32,9 @@ Engine.prototype.Loop = function(){
             lag -= MPU;
         }
         this.Render(lag / MPU);
+        if (this.count % this.FPS === 0) {
+            this.callback(this);
+        }
     }.bind(this);
     this.Start();
     loop();
@@ -46,5 +52,13 @@ Engine.prototype.Render = function(delta){
 
 };
 
+Engine.prototype.addCallback = function(callback){
+    this.callback = callback;
+};
+
+
 var engine = new Engine();
+engine.addCallback(function(engine){
+    console.log(this.count * this.FPS);
+});
 engine.Loop();
