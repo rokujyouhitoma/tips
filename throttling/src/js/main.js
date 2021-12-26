@@ -1,5 +1,3 @@
-console.log("main");
-
 class Engine {
     constructor(objects) {
         this.objects = objects;
@@ -12,8 +10,8 @@ class Engine {
 
     Loop() {
         var lag = 0;
-        var MPU = 1000 / this.FPS;
-        var LIMIT_LAG = 1000 * MPU;
+        const MPU = 1000 / this.FPS;
+        const LIMIT_LAG = 1000 * MPU;
         var loop = function(){
             if(0 <= this.count){
                 setTimeout(loop, MPU);
