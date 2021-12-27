@@ -6,11 +6,12 @@ class ExDate {
 
 class Engine {
     constructor(date) {
+        var now = date.now();
         this.Date = date;
         this.count = 0;
         this.FPS = 60;
-        this.lastUpdate = this.Date.now();
-        this.m = 0;
+        this.instanciateAt = now;
+        this.lastUpdate = now;
         this.callback = null;
     }
 
@@ -25,7 +26,6 @@ class Engine {
             }
             var now = this.Date.now();
             var elapsed = now - this.lastUpdate;
-            this.m += elapsed;
             this.lastUpdate = now;
             lag += elapsed;
             if(LIMIT_LAG < lag){
@@ -69,7 +69,9 @@ document.body.appendChild(h1);
 
 var engine = new Engine(new ExDate());
 engine.addCallback(function(engine){
-    console.log(this.count * this.FPS);
-    h1.innerText = this.count * this.FPS;
+    //var value = this.count * this.FPS;
+    var value = this.lastUpdate - this.instanciateAt;
+    console.log(value);
+    h1.innerText = value;
 });
 engine.Loop();
