@@ -1,14 +1,15 @@
 class ExDate {
-    static now() {
+    now() {
         return Date.now();
     }
 }
 
 class Engine {
-    constructor() {
+    constructor(date) {
+        this.Date = date;
         this.count = 0;
         this.FPS = 60;
-        this.lastUpdate = ExDate.now();
+        this.lastUpdate = this.Date.now();
         this.m = 0;
         this.callback = null;
     }
@@ -22,7 +23,7 @@ class Engine {
                 setTimeout(loop, MPU);
                 this.count++;
             }
-            var now = ExDate.now();
+            var now = this.Date.now();
             var elapsed = now - this.lastUpdate;
             this.m += elapsed;
             this.lastUpdate = now;
@@ -49,7 +50,7 @@ class Engine {
     }
 
     Update() {
-        console.log("Update");
+        //console.log("Update");
     }
 
     Render(delta) {
@@ -62,8 +63,13 @@ class Engine {
 }
 
 
-var engine = new Engine();
+// main
+var h1 = document.createElement("h1")
+document.body.appendChild(h1);
+
+var engine = new Engine(new ExDate());
 engine.addCallback(function(engine){
     console.log(this.count * this.FPS);
+    h1.innerText = this.count * this.FPS;
 });
 engine.Loop();
