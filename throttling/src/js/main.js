@@ -1,9 +1,15 @@
+class ExDate {
+    static now() {
+        return Date.now();
+    }
+}
+
 class Engine {
     constructor(objects) {
         this.objects = objects;
         this.count = 0;
         this.FPS = 60;
-        this.lastUpdate = Date.now();
+        this.lastUpdate = ExDate.now();
         this.m = 0;
         this.callback = null;
     }
@@ -17,7 +23,7 @@ class Engine {
                 setTimeout(loop, MPU);
                 this.count++;
             }
-            var now = Date.now();
+            var now = ExDate.now();
             var elapsed = now - this.lastUpdate;
             this.m += elapsed;
             this.lastUpdate = now;
