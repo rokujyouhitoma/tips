@@ -5,8 +5,7 @@ class ExDate {
 }
 
 class Engine {
-    constructor(objects) {
-        this.objects = objects;
+    constructor() {
         this.count = 0;
         this.FPS = 60;
         this.lastUpdate = ExDate.now();
