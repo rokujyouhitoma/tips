@@ -10,8 +10,8 @@ class Engine {
         this.Date = date;
         this.count = 0;
         this.FPS = 60;
-        this.instanciateAt = now;
-        this.lastUpdate = now;
+        this.instanciatedAt = now;
+        this.lastUpdatedAt = now;
         this.callback = null;
     }
 
@@ -25,8 +25,8 @@ class Engine {
                 this.count++;
             }
             var now = this.Date.now();
-            var elapsed = now - this.lastUpdate;
-            this.lastUpdate = now;
+            var elapsed = now - this.lastUpdatedAt;
+            this.lastUpdatedAt = now;
             lag += elapsed;
             if(LIMIT_LAG < lag){
                 lag = 0;
@@ -70,7 +70,7 @@ document.body.appendChild(h1);
 var engine = new Engine(new ExDate());
 engine.addCallback(function(engine){
     //var value = this.count * this.FPS;
-    var value = this.lastUpdate - this.instanciateAt;
+    var value = this.lastUpdatedAt - this.instanciatedAt;
     console.log(value);
     h1.innerText = value;
 });
