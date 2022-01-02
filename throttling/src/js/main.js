@@ -33,27 +33,26 @@ class Engine {
                 return;
             }
             while(MPU <= lag){
-                this.Update();
+                this.OnUpdate();
                 lag -= MPU;
             }
-            this.Render(lag / MPU);
+            this.OnRender(lag / MPU);
             if (this.count % this.FPS === 0) {
                 this.callback(this);
             }
         }.bind(this);
-        this.Start();
+        this.OnStart();
         loop();
     }
 
-    Start() {
+    OnStart() {
         console.log("Start");
     }
 
-    Update() {
-        //console.log("Update");
+    OnUpdate() {
     }
 
-    Render(delta) {
+    OnRender(delta) {
     }
 
     addCallback(callback) {
@@ -69,7 +68,6 @@ document.body.appendChild(h1);
 
 var engine = new Engine(new ExDate());
 engine.addCallback(function(engine){
-    //var value = this.count * this.FPS;
     var value = this.lastUpdatedAt - this.instanciatedAt;
     console.log(value);
     h1.innerText = value;
