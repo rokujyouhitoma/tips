@@ -1,4 +1,3 @@
-
 class ExDate {
     now() {
         return Date.now();
@@ -11,12 +10,12 @@ class Engine {
         this.Date = date;
         this.count = 0;
         this.FPS = 60;
-        this.instanciatedAt = now;
-        this.lastUpdatedAt = now;
+        this.instanciated_at = now;
+        this.last_updated_at = now;
         this.callback = null;
     }
 
-    Loop() {
+    start() {
         var lag = 0;
         const MPU = 1000 / this.FPS;
         const LIMIT_LAG = 1000 * MPU;
@@ -26,37 +25,32 @@ class Engine {
                 this.count++;
             }
             var now = this.Date.now();
-            var elapsed = now - this.lastUpdatedAt;
-            this.lastUpdatedAt = now;
+            var elapsed = now - this.lastUpdated_at;
+            this.lastUpdated_at = now;
             lag += elapsed;
             if(LIMIT_LAG < lag){
                 lag = 0;
                 return;
             }
             while(MPU <= lag){
-                this.OnUpdate();
+                this.update();
                 lag -= MPU;
             }
-            this.OnRender(lag / MPU);
+            this.render(lag / MPU);
             if (this.count % this.FPS === 0) {
                 this.callback(this);
             }
         }.bind(this);
-        this.OnStart();
         loop();
     }
 
-    OnStart() {
-        console.log("Start");
+    update() {
     }
 
-    OnUpdate() {
+    render(delta) {
     }
 
-    OnRender(delta) {
-    }
-
-    addCallback(callback) {
+    add_callback(callback) {
         this.callback = callback;
     }
 
@@ -67,8 +61,8 @@ var h1 = document.createElement("h1")
 document.body.appendChild(h1);
 
 var engine = new Engine(new ExDate());
-engine.addCallback(function(engine){
-    var value = this.lastUpdatedAt - this.instanciatedAt;
+engine.add_callback(function(engine){
+    var value = this.lastUpdated_at - this.instanciated_at;
     h1.innerText = "time:" + value;
 });
-engine.Loop();
+engine.start();
