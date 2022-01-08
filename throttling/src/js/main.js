@@ -78,13 +78,8 @@ class TokenBucket {
         }
         return false;
     }
-
-    update() {
-        return this.add_token();
-    }
 }
 
-// main
 var h1 = document.createElement("h1")
 document.body.appendChild(h1);
 
