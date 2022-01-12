@@ -20,9 +20,13 @@ class TokenBucket {
         var now = this.date.now();
         var delta = now - this.last_updated_at;
         var hearing_token = delta % this.hearing_time;
-        this.last_updated_at = now;
+        console.log(hearing_token);
         if (this.token + hearing_token <= this.b) {
             this.token += hearing_token;
+            this.last_updated_at = now;
+        } else if (this.token + hearing_token > this.b) {
+            this.token = this.b;
+            this.last_updated_at = now;
         }
     }
 
@@ -36,5 +40,16 @@ class TokenBucket {
     }
 }
 
+var token_bucket = new TokenBucket(new ExDate(), 2, 100);
+
 var h1 = document.createElement("h1")
 document.body.appendChild(h1);
+
+
+var button = document.createElement("button")
+button.innerText = "hi";
+button.addEventListener("click", function(){
+    token_bucket.remove_token(10);
+    console.log(token_bucket.token);
+});
+document.body.appendChild(button);
