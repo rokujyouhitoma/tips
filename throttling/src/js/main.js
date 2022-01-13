@@ -19,15 +19,10 @@ class TokenBucket {
     hearing() {
         var now = this.date.now();
         var delta = now - this.last_updated_at;
-        var hearing_token = delta % this.hearing_time;
-        console.log(hearing_token);
-        if (this.token + hearing_token <= this.b) {
-            this.token += hearing_token;
-            this.last_updated_at = now;
-        } else if (this.token + hearing_token > this.b) {
-            this.token = this.b;
-            this.last_updated_at = now;
-        }
+        var v = delta % this.hearing_time;
+        var hearing_token = (this.token + v > this.b) ?  this.b: this.token + v;
+        this.token = hearing_token;
+        this.last_updated_at = now;
     }
 
     remove_token(n) {
@@ -40,7 +35,7 @@ class TokenBucket {
     }
 }
 
-var token_bucket = new TokenBucket(new ExDate(), 2, 100);
+var token_bucket = new TokenBucket(new ExDate(), 16, 100);
 
 var h1 = document.createElement("h1")
 document.body.appendChild(h1);
