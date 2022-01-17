@@ -20,14 +20,9 @@ class TokenBucket {
         var now = this.date.now();
         var delta = now - this.last_updated_at;
         var v = Math.round(delta / this.hearing_time);
-        if (v > 0) {
-            if (this.b + v < this.B) {
-                this.b += v
-                this.last_updated_at = now;
-            } else if (this.b + v > this.B) {
-                this.b = this.B;
-                this.last_updated_at = now;
-            }
+        if (0 < v && this.b < this.B) {
+            this.b = (this.b + v < this.B) ? this.b + v : this.B;
+            this.last_updated_at = now;
         }
     }
 
