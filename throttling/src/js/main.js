@@ -6,10 +6,10 @@ class ExDate {
 
 
 class TokenBucket {
-    constructor(date, hearing_time, b) {
+    constructor(date, r, b) {
         this.date = date;
         let now = date.now();
-        this.hearing_time = hearing_time;
+        this.r = r;
         this.MAX_B = b;
         this.b = b;
         this.last_updated_at = now;
@@ -18,7 +18,7 @@ class TokenBucket {
     hearing() {
         let now = this.date.now();
         let delta = now - this.last_updated_at;
-        let v = Math.round(delta / this.hearing_time);
+        let v = Math.round(delta / this.r);
         if (0 < v && this.b < this.MAX_B) {
             this.b = (this.b + v < this.MAX_B) ? this.b + v : this.MAX_B;
             this.last_updated_at = now;
