@@ -12,7 +12,6 @@ class TokenBucket {
         this.hearing_time = hearing_time;
         this.MAX_B = b;
         this.b = b;
-        this.instanciated_at = now;
         this.last_updated_at = now;
     }
 
