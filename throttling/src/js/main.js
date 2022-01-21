@@ -15,7 +15,7 @@ class TokenBucket {
         this.last_updated_at = now;
     }
 
-    hearing() {
+    remove(n) {
         let now = this.date.now();
         let delta = now - this.last_updated_at;
         let v = Math.round(delta / this.r);
@@ -23,10 +23,6 @@ class TokenBucket {
             this.b = (this.b + v < this.MAX_B) ? this.b + v : this.MAX_B;
             this.last_updated_at = now;
         }
-    }
-
-    remove_token(n) {
-        this.hearing();
         if (0 <= this.b - n) {
             this.b -= n;
             return true;
@@ -42,9 +38,9 @@ document.body.appendChild(h1);
 
 
 let button = document.createElement("button")
-button.innerText = "hi";
+button.innerText = "Remove 10";
 button.addEventListener("click", function(){
-    token_bucket.remove_token(10);
+    token_bucket.remove(10);
     console.log(token_bucket.b);
 });
 document.body.appendChild(button);
