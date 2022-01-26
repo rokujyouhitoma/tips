@@ -29,7 +29,7 @@ class Xorshift {
     }
 
     rand() {
-        var tmp = this._x ^ (this._x << 11);
+        let tmp = this._x ^ (this._x << 11);
         this._x = this._y >>> 0;
         this._y = this._z >>> 0;
         this._z = this._w >>> 0;
@@ -38,7 +38,7 @@ class Xorshift {
     }
 
     calcProbability(prob) {
-        var dice = (this.rand() % 100);
+        let dice = (this.rand() % 100);
         return (dice < prob);
     }
 
