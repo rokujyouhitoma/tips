@@ -12,8 +12,6 @@ class Random {
     }
 }
 
-exports.Random = Random;
-
 //Algorithm is coming from http://www.jstatsoft.org/v08/i14/paper Xorshift.
 class Xorshift {
     static MIN_VALUE = 0;
