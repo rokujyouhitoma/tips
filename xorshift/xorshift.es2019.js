@@ -1,13 +1,13 @@
 class Random {
-    constractor(opt_generator) {
-        this.generator = opt_generator || new Xorshift();
+    constructor() {
+        this.generator = new Xorshift();
     }
 
     srand(seed) {
         return this.generator.srand(seed);
     }
 
-    rand = function() {
+    rand() {
         return this.generator.rand();
     }
 }
@@ -17,30 +17,26 @@ class Xorshift {
     static MIN_VALUE = 0;
     static MAX_VALUE = 0xFFFFFFFF;
 
-    constractor() {
-        this._reset(Date.now());
+    constructor() {
+        this.#reset(Date.now());
     }
 
     srand(seed) {
-        this._reset(seed);
+        this.#reset(seed);
         return this.rand();
     }
 
+    /* @return: 0 to 0xFFFFFFFF */
     rand() {
         let tmp = this._x ^ (this._x << 11);
         this._x = this._y >>> 0;
         this._y = this._z >>> 0;
         this._z = this._w >>> 0;
         this._w = (this._w ^ (this._w >>> 19)) ^ (tmp ^ (tmp >>> 8));
-        return this._w; /* 0 to 0xFFFFFFFF */
+        return this._w;
     }
 
-    calcProbability(prob) {
-        let dice = (this.rand() % 100);
-        return (dice < prob);
-    }
-
-    _reset(seed) {
+    #reset(seed) {
         this._x = (seed & 0x66666666) >>> 0;
         this._y = (seed ^ 0xffffffff) >>> 0;
         this._z = ((seed & 0x0000ffff << 16) | (seed >> 16) & 0x0000ffff) >>> 0;
