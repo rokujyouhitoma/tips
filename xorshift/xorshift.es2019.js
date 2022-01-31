@@ -1,3 +1,9 @@
+class ExDate {
+    static now() {
+        return Date.now();
+    }
+}
+
 class Random {
     constructor() {
         this.generator = new Xorshift();
@@ -17,7 +23,8 @@ class Xorshift {
     static MIN_VALUE = 0;
     static MAX_VALUE = 0xFFFFFFFF;
 
-    constructor() {
+    constructor(OptDate) {
+        let Date = OptDate || Date;
         this.#reset(Date.now());
     }
 
