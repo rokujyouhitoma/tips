@@ -1,5 +1,5 @@
-var Random = function(opt_generator) {
-    this.generator = opt_generator || new Xorshift();
+var Random = function() {
+    this.generator = new Xorshift();
 };
 
 Random.prototype.srand = function(seed) {
@@ -23,18 +23,14 @@ Xorshift.prototype.srand = function(seed){
     return this.rand();
 };
 
+/* @return: 0 to 0xFFFFFFFF */
 Xorshift.prototype.rand = function() {
     var tmp = this._x ^ (this._x << 11);
     this._x = this._y >>> 0;
     this._y = this._z >>> 0;
     this._z = this._w >>> 0;
     this._w = (this._w ^ (this._w >>> 19)) ^ (tmp ^ (tmp >>> 8));
-    return this._w; /* 0 to 0xFFFFFFFF */
-};
-
-Xorshift.prototype.calcProbability = function(prob) {
-    var dice = (this.rand() % 100);
-    return (dice < prob);
+    return this._w;
 };
 
 Xorshift.prototype._reset = function(seed) {
