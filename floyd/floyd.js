@@ -8,18 +8,16 @@ function floyd(top) {
 
     while(true) {
         if(!hare.slice(1) || hare.length === 0) {
-            return false; // NO LOOP
+            return false;
         }
-        hare = hare.slice(1); // Increment Hare
-        //Is Hare at End?
+        hare = hare.slice(1);
         if(!hare.slice(1) || hare.length === 0) {
-            return false; // NO LOOP
+            return false;
         }
-        hare = hare.slice(1); // Increment Hare Again                                                                                                                               
+        hare = hare.slice(1);
         tortoise = tortoise.slice(1);
-        // Did Hare Meet Tortoise?
         if(hare[0] === tortoise[0]) {
-            return true; // LOOP!
+            return true;
         }
     }
 }
