@@ -4,11 +4,10 @@ class ExDate {
     }
 }
 
-
 class TokenBucket {
     constructor(date, r, b) {
-        this.date = date;
         let now = date.now();
+        this.date = date;
         this.r = r;
         this.MAX_B = b;
         this.b = b;
@@ -16,13 +15,15 @@ class TokenBucket {
     }
 
     remove(n) {
+        // For hearing
         let now = this.date.now();
         let delta = now - this.last_updated_at;
         let v = Math.round(delta / this.r);
         if (0 < v && this.b < this.MAX_B) {
-            this.b = (this.b + v < this.MAX_B) ? this.b + v : this.MAX_B;
+            this.b = Math.min(this.b + v, this.MAX_B);
             this.last_updated_at = now;
         }
+        // For removal
         if (0 <= this.b - n) {
             this.b -= n;
             return true;
@@ -38,7 +39,7 @@ document.body.appendChild(h1);
 
 
 let button = document.createElement("button")
-button.innerText = "Remove 10";
+button.innerText = "Remove(10)";
 button.addEventListener("click", function(){
     token_bucket.remove(10);
     console.log(token_bucket.b);
