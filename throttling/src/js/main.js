@@ -6,12 +6,11 @@ class ExDate {
 
 class TokenBucket {
     constructor(date, r, b) {
-        let now = date.now();
+        this.MAX_B = b;
         this.date = date;
         this.r = r;
-        this.MAX_B = b;
         this.b = b;
-        this.last_updated_at = now;
+        this.last_updated_at = date.now();
     }
 
     remove(n) {
@@ -33,11 +32,8 @@ class TokenBucket {
 }
 
 let token_bucket = new TokenBucket(new ExDate(), 100, 100);
-
 let h1 = document.createElement("h1")
 document.body.appendChild(h1);
-
-
 let button = document.createElement("button")
 button.innerText = "Remove(10)";
 button.addEventListener("click", function(){
