@@ -1,5 +1,6 @@
 class BitArray {
-    constructor(initializer) {
+    constructor(usize) {
+        this.array = [...Array(usize)];
     }
 }
 
