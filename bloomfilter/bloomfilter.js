@@ -1,6 +1,6 @@
 class BitArray {
     constructor(usize) {
-        this.array = [...Array(usize)];
+        this.array = [...new Array(usize)].map(() => false);
     }
 }
 
