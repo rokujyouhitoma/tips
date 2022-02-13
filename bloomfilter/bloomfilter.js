@@ -14,4 +14,11 @@ class BloomFilter {
         this.data = new BitArray(this.num_bits);
     }
 
+    add(key) {
+        //TODO
+    }
+
+    search(key) {
+        //TODO
+    }
 }
