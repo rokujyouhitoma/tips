@@ -14,6 +14,14 @@ class BloomFilter {
         this.data = new BitArray(this.num_bits);
     }
 
+    _indexes() {
+        h1 = hash1();
+        h2 = hash2();
+        for i in range(this.num_hashes) {
+            yield (h1 + i * h2) % self.num_hashes;
+        }
+    }
+
     add(key) {
         //TODO
     }
