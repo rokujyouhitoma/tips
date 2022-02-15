@@ -15,6 +15,7 @@ class BloomFilter {
     }
 
     _indexes() {
+        // TODO
         h1 = hash1();
         h2 = hash2();
         for i in range(this.num_hashes) {
@@ -24,6 +25,9 @@ class BloomFilter {
 
     add(key) {
         //TODO
+        for index in this,_indexes(key) {
+            this.data[index] = True;
+        }
     }
 
     search(key) {
