@@ -24,10 +24,9 @@ class BloomFilter {
     }
 
     add(key) {
-        //TODO
-        for index in this,_indexes(key) {
+        this,_indexes(key).forEach(async (index) => {
             this.data[index] = True;
-        }
+        }, this);
     }
 
     search(key) {
