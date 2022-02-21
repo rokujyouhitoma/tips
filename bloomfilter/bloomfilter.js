@@ -30,7 +30,7 @@ class BloomFilter {
     }
 
     search(key) {
-        return this._indexes(key).map((index) => this.data[index], this).every((v) => !!v);
+        return this._indexes(key).every((index) => !!this.data[index], this);
     }
 
     contains(key) {
