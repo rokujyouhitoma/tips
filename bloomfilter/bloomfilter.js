@@ -18,7 +18,7 @@ class BloomFilter {
         // TODO
         h1 = hash1();
         h2 = hash2();
-        for i in range(this.num_hashes) {
+        for(let i = 0; i < this.num_hashes; i++) {
             yield (h1 + i * h2) % self.num_hashes;
         }
     }
@@ -33,7 +33,7 @@ class BloomFilter {
         return this._indexes(key).every((index) => !!this.data[index], this);
     }
 
-    contains(key) {
+    __contains__(key) {
         return this.search(key);
     }
 }
