@@ -1,30 +1,41 @@
 class Tape {
-    constructor(commands) {
-        this.counter = 0;
-        this.commands = commands;
+    constructor(acceptors) {
+        this.pointer = 0;
+        this.acceptors = acceptors;
     }
-    add(v) {
-        if (0 <= this.counter && this.counter < this.commands.length) {
-            this.counter = (this.commands[this.counter] == v) ? this.counter + 1 : 0;
+    record(v) {
+        if (0 <= this.pointer && this.pointer < this.acceptors.length && this.acceptors[this.pointer] === v) {
+            this.pointer++;
         } else {
-            this.counter = 0;
+            this.reset();
         }
     }
-    isAccept() {
-        return this.counter === this.commands.length;
+    hasEnd() {
+        return this.pointer === this.acceptors.length;
+    }
+    reset() {
+        this.pointer = 0;
     }
 }
+
+// ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a', 'Enter'];
 const tape = new Tape([38,38,40,40,37,39,37,39,66,65,13]);
-document.addEventListener('keydown', (event) => {
-    tape.add(event.keyCode);
-    if (tape.isAccept()){
-        var img = document.createElement("img");
-        img.src = "https://pbs.twimg.com/profile_images/206948941/wall-e_400x400.jpg";
-        img.height = 100;
-        img.width = 100;
-        document.body.appendChild(img);
-        setTimeout(function(){
-            img.parentNode.removeChild(img);
-        }, 1000);
+
+function showImage() {
+   var img = document.createElement("img");
+   img.src = "https://pbs.twimg.com/profile_images/206948941/wall-e_400x400.jpg";
+   img.height = 100;
+   img.width = 100;
+   document.body.appendChild(img);
+   setTimeout(function(){
+      img.parentNode.removeChild(img);
+   }, 1000);
+}
+
+document.addEventListener("keydown", (event) => {
+    tape.record(event.keyCode);
+    if (tape.hasEnd()){
+        tape.reset();
+        showImage();
     }
 }, false);
