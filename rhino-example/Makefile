@@ -1,4 +1,5 @@
-MAIN_CLASS_NAME=HelloWorld
+MAIN_CLASS_NAME=Rhino
+CLASS_PATH=third/rhino-1.7.14.jar:third/rhino-engine-1.7.14.jar
 
 .PHONY: help
 help: ## help command
@@ -10,8 +11,8 @@ clean: ## clean
 
 .PHONY: run
 run: ## run
-	java ${MAIN_CLASS_NAME}
+	java -classpath .:${CLASS_PATH} ${MAIN_CLASS_NAME}
 
 .PHONY: compile
 compile: ## javac compile
-	javac *.java
+	javac -classpath .:${CLASS_PATH} ${MAIN_CLASS_NAME}.java
