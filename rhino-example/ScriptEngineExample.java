@@ -5,7 +5,7 @@ import javax.script.ScriptException;
 import java.util.List;
 import javax.script.ScriptEngineFactory;
 
-public class Rhino {
+public class ScriptEngineExample {
   public static void main(String[] args) {
     ScriptEngineManager manager = new ScriptEngineManager();
     //ScriptEngine engine = manager.getEngineByName("");

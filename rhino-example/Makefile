@@ -1,4 +1,5 @@
-MAIN_CLASS_NAME=Rhino
+THIRD_DIR=third
+MAIN_CLASS_NAME=ScriptEngineExample
 CLASS_PATH=third/rhino-1.7.14.jar:third/rhino-engine-1.7.14.jar
 
 .PHONY: help
@@ -8,6 +9,11 @@ help: ## help command
 .PHONY: clean
 clean: ## clean
 	rm *.class
+
+.PHONY: setup
+setup: ## setup
+	cd $(THIRD_DIR) && curl -OL https://github.com/mozilla/rhino/releases/download/Rhino1_7_14_Release/rhino-1.7.14.jar
+	cd $(THIRD_DIR) && curl -OL https://github.com/mozilla/rhino/releases/download/Rhino1_7_14_Release/rhino-engine-1.7.14.jar
 
 .PHONY: run
 run: ## run
