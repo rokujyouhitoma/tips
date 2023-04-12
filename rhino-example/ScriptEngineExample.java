@@ -3,12 +3,13 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import java.util.List;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
 import javax.script.ScriptEngineFactory;
 
 public class ScriptEngineExample {
   public static void main(String[] args) {
     ScriptEngineManager manager = new ScriptEngineManager();
-    //ScriptEngine engine = manager.getEngineByName("");
 
     List<ScriptEngineFactory> factories = manager.getEngineFactories();
     for (ScriptEngineFactory factory : factories) {
@@ -21,5 +22,14 @@ public class ScriptEngineExample {
       System.out.println("Names : " + factory.getNames());
     }
 
+    ScriptEngine engine = manager.getEngineByName("Rhino");
+    System.out.println(engine);
+    try {
+        engine.eval(new FileReader("js/main.js"));
+    } catch (ScriptException e) {
+        System.out.println(e);
+    } catch (FileNotFoundException e) {
+        System.out.println(e);
+    }
   }
 }
