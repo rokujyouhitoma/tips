@@ -16,7 +16,7 @@ let console = {
         } else {
             let first = args[1];
             if (typeof first !== 'string') {
-                data.push(message);
+                data.unshift(message);
             } else {
                 let concated = `${message}: ${first}`;
                 data[0] = concated;
@@ -53,6 +53,7 @@ console.assert(console.log);
 console.assert(true);
 console.assert(false);
 console.assert(false, 1);
+console.assert(false, "1");
 
 //TODO: Google Apps Script APIs
 //PropertiesService
