@@ -26,7 +26,6 @@ let console = {
     }
 };
 
-print("Hello World! by print");
 console.log("Hello World! by console.log");
 
 
@@ -60,6 +59,13 @@ console.assert(false, "1");
 //PropertiesService.getScriptProperties()
 //PropertiesService.getScriptProperties().getProperty(name)
 //PropertiesService.getScriptProperties().setProperty(key, value)
+let PropertiesService = {
+    "getScriptProperties": function(){
+        // TODO
+        return;
+    }
+};
+console.assert(PropertiesService);
 
 //see: https://developers.google.com/apps-script/reference/spreadsheet/spreadsheet-app?hl=ja
 /*
@@ -81,7 +87,6 @@ console.assert(false, "1");
 //HtmlService
 //HtmlService.createHtmlOutput
 
-//console.log(Object.keys);
 let f1 = (x) => x;
 
 //OAuth2
