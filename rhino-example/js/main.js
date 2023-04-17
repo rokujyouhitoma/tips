@@ -55,6 +55,9 @@ console.assert(false, 1);
 console.assert(false, "1");
 
 //TODO: Google Apps Script APIs
+let Properties = function() {
+};
+
 //PropertiesService
 //PropertiesService.getScriptProperties()
 //PropertiesService.getScriptProperties().getProperty(name)
@@ -62,10 +65,12 @@ console.assert(false, "1");
 let PropertiesService = {
     "getScriptProperties": function(){
         // TODO
-        return;
+        return new Properties();
     }
 };
 console.assert(PropertiesService);
+console.assert(PropertiesService.getScriptProperties);
+console.log(PropertiesService.getScriptProperties());
 
 //see: https://developers.google.com/apps-script/reference/spreadsheet/spreadsheet-app?hl=ja
 /*
