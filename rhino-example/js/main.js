@@ -56,6 +56,16 @@ console.assert(false, "1");
 
 //TODO: Google Apps Script APIs
 let Properties = function() {
+    //TODO
+    let Store = function(){};
+    this.store = new Store();
+};
+Properties.prototype.getProperty = function(key){
+    return this.store.get(key);
+};
+Properties.prototype.setProperty = function(key, value){
+    this.store.set(key, value);
+    return this;
 };
 
 //PropertiesService
@@ -70,7 +80,9 @@ let PropertiesService = {
 };
 console.assert(PropertiesService);
 console.assert(PropertiesService.getScriptProperties);
-console.log(PropertiesService.getScriptProperties());
+console.assert(PropertiesService.getScriptProperties());
+console.assert(PropertiesService.getScriptProperties().getProperty);
+console.assert(PropertiesService.getScriptProperties().setProperty);
 
 //see: https://developers.google.com/apps-script/reference/spreadsheet/spreadsheet-app?hl=ja
 /*
