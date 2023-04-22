@@ -58,6 +58,10 @@ console.assert(false, "1");
 let Properties = function() {
     //TODO
     let Store = function(){};
+    Store.prototype.set = function(key, value){
+    };
+    Store.prototype.get = function(key) {
+    };
     this.store = new Store();
 };
 Properties.prototype.getProperty = function(key){
