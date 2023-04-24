@@ -26,8 +26,27 @@ let console = {
     }
 };
 
-console.log("Hello World! by console.log");
 
+let Store = function(){
+    var file = new java.io.FileReader("test.json");
+    var sb = new java.lang.StringBuilder();
+    while(file.read() != -1) {
+        sb.append(file.read());
+    }
+    var contents = sb.toString();
+    file.close();
+    console.log(contents);
+};
+Store.prototype.set = function(key, value){
+    var json = JSON.stringify({}, null, 2);
+    var file = new java.io.FileWriter("test.json");
+    file.write(json);
+    file.close();
+};
+Store.prototype.get = function(key) {
+};
+
+console.log("Hello World! by console.log");
 
 let test_let = "test_let";
 
@@ -56,12 +75,6 @@ console.assert(false, "1");
 
 //TODO: Google Apps Script APIs
 let Properties = function() {
-    //TODO
-    let Store = function(){};
-    Store.prototype.set = function(key, value){
-    };
-    Store.prototype.get = function(key) {
-    };
     this.store = new Store();
 };
 Properties.prototype.getProperty = function(key){
@@ -87,6 +100,7 @@ console.assert(PropertiesService.getScriptProperties);
 console.assert(PropertiesService.getScriptProperties());
 console.assert(PropertiesService.getScriptProperties().getProperty);
 console.assert(PropertiesService.getScriptProperties().setProperty);
+console.assert(PropertiesService.getScriptProperties().setProperty("key", "value"));
 
 //see: https://developers.google.com/apps-script/reference/spreadsheet/spreadsheet-app?hl=ja
 /*
